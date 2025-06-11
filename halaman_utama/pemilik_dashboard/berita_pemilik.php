@@ -1,0 +1,282 @@
+<?php
+require '../Login_page/koneksi.php';
+require '../jobs/koneksi.php';
+
+
+$stmt = $pdo->query("SELECT * FROM card ORDER BY id DESC");
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+session_start();
+$isLoggedIn = isset($_SESSION['user']);
+$userName = $isLoggedIn ? $_SESSION['user']['nama'] : '';
+$userRole = $isLoggedIn ? $_SESSION['user']['role'] : '';
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nandur - Dukung Petani Lokal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../jobs/jobs-1.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="icon" type="image/x-icon" href="/gambar/nandur_logo.png">
+</head>
+
+<body id="home" class="min-h-screen bg-gray-100">
+
+    <header id="home">
+       <header id="home">
+        <div class="nav-container">
+            <nav>
+                <div class="logo">nandur</div>
+            </nav>
+        
+        <div class="menu-items">
+            <a href="home_after_login_petani.php">Beranda</a>
+            <a href="jobs-login_pemilik.php">Kerja</a>
+            <a href="#">Berita</a>
+            <a href="tentang_pemilik.php">Tentang</a>
+            <a href="../shop/shop.php">Belanja</a>
+        </div>
+        
+        <!-- Tombol Sign In -->
+         <?php if ($isLoggedIn): ?>
+  <div class="profile-dropdown">
+    <?php
+// Pilih avatar berdasarkan role
+$avatarSrc = '../gambar/default_avatar.jpg'; // default
+
+if ($userRole === 'petani') {
+    $avatarSrc = '../gambar/farmer.png';
+} elseif ($userRole === 'pemilik_lahan') {
+    $avatarSrc = '../gambar/juragan.png';
+} 
+?>
+<img src="<?= $avatarSrc ?>" alt="Avatar" class="avatar-icon">
+    <div class="dropdown-content">
+      <span style="padding: 0 12px; display: block; font-weight: 1000;"><?= htmlspecialchars($userName) ?></span>
+      <a href="profile1.php">Profil</a>
+      <a href="../home.html" id="logout">Logout</a>
+    </div>
+  </div>
+<?php else: ?>
+  <a href="Login_page/login_page.php" class="btn sign-in">Login</a>
+<?php endif; ?>
+
+        </div>
+        </div>
+        <!-- MOBILE NAV MENU -->
+    <div class="mobile-navmenu">
+        <div class="logo">nandur</div>
+        <div class="menu-icons">
+            <img class="menu-icon" src="/gambar/menu-icon.png" alt="">
+            <img class="close-icon" src="/gambar/close-iconn.png" alt="">
+        </div>
+    </div>
+
+    <div class="mobile-menu-items">
+        <div class="menu-items">
+            <a href="home_after_login_petani.php">Beranda</a>
+            <a href="jobs-login_petani.php">Kerja</a>
+            <a href="#">Berita</a>
+            <a href="tentang_pemilik.php">Tentang</a>
+            <a href="../shop/shop.php">Belanja</a>
+        </div>
+        <div class="auth-buttons">
+            <?php if ($isLoggedIn): ?>
+            <div class="profile-dropdown">
+                <img src="<?= $avatarSrc ?>" alt="Avatar" class="avatar-icon">
+                <div class="dropdown-content">
+                    <span style="padding: 0 12px; display: block; font-weight: 1000;">
+                        <?= htmlspecialchars($userName) ?>
+                    </span>
+                    <a href="profile1.php">Profil</a>
+                    <a href="../home.html" id="logout-mobile">Logout</a>
+                </div>
+            </div>
+            <?php else: ?>
+            <a href="Login_page/login_page.php" class="btn sign-in">Login</a>
+            <?php endif; ?>
+        </div>
+    </div>
+    </header>
+    <section>
+        <div class="container px-5 py-24 mx-auto flex-col flex flex-wrap -m-4 ">
+                <div class="p-4">
+                    <a href="https://kemenkopangan.go.id/detail-berita/jambore-penyuluh-pertanian-jawa-barat-2025-menuju-swasembada-ketahanan-pangan-jadi-prioritas">
+                    <div class="flex md:flex-row flex-col border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                        <div class="w-full md:w-1/3 p-4 md:p-8 flex items-center justify-center">
+                        <img class="h-full  w-full object-cover rounded-3xl" src="https://kemenkopangan.go.id/assets/images/berita/235117_jambore-penyuluh-pertanian-jawa-barat-2025-menuju-swasembada-ketahanan-pangan-jadi-prioritas_20250502102705.jpg" alt="blog">
+                        </div>
+                        <div class="w-2/3 p-8 ">
+                        <h1 style="font-family: 'Archivo Black', sans-serif;" class="text-3xl font-semibold mb-5 text-green-900">Jambore Pertanian Jabar 2025 Dorong Swasembada Pangan</h1>
+                        <p class="text-lg leading-relaxed">Kabupaten Kuningan menjadi tuan rumah Jambore Pertanian Jawa Barat 2025 yang berlangsung sejak 28–30 April di Kebun Raya Kuningan. Acara ini mempertemukan lebih dari 1.000 petani, penyuluh, akademisi, dan pemangku kebijakan provinsi untuk berbagi praktik terbaik, teknologi tepat guna, dan strategi peningkatan produktivitas. Dalam sambutannya, Bupati Kuningan menegaskan bahwa pertanian bukan hanya aktivitas ekonomi, melainkan juga penopang kedaulatan bangsa, sekaligus mengajak semua pihak bersinergi demi ketahanan pangan yang mandiri di Jawa Barat.
+                        </p>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+              <div class="p-4">
+                <a href="https://www.liputan6.com/bisnis/read/6019500/distribusi-pupuk-subsidi-di-jatim-tembus-590-ribu-ton-tertinggi-se-indonesia">
+                    <div class="flex md:flex-row flex-col border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                        <div class="w-full md:w-1/3 p-4 md:p-8 flex items-center justify-center">
+                        <img class="h-full  w-full object-cover rounded-3xl" src="https://cdn1-production-images-kly.akamaized.net/vlAvjpP7CcbbPZaoTfvgVNgJej4=/640x360/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4383486/original/034295100_1680642790-WhatsApp_Image_2023-04-05_at_03.50.00.jpeg" alt="blog">
+                        </div>
+                        <div class="w-2/3 p-8 ">
+                        <h1 style="font-family: 'Archivo Black', sans-serif;" class="text-3xl font-semibold mb-5 text-green-900">Penyaluran Pupuk Subsidi Nasional Dikebut, Jatim Tembus 590.351 Ton</h1>
+                        <p class="text-lg leading-relaxed">PT Pupuk Indonesia (Persero) mempercepat distribusi pupuk bersubsidi ke seluruh Indonesia melalui program “Tebus Bersama” dan sosialisasi aktif di lapangan, termasuk waktu diatur di Madiun, Jawa Timur. Hingga akhir kuartal I 2025 tercatat realisasi penyaluran mencapai 1,7 juta ton—naik sekitar 30% dibanding periode sama tahun lalu. Di tingkat regional, Jawa Timur memimpin dengan 590.351 ton pupuk disalurkan hingga 7 Mei 2025, terdiri dari urea, NPK, NPK formula khusus, dan pupuk organik.
+                        </p>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="p-4">
+                    <a href="https://ekonomi.republika.co.id/berita/sw6t7i368/stok-cadangan-beras-pemerintah-tembus-37-juta-ton-indonesia-terdepan-di-asean-dalam-produksi-beras">
+                    <div class="flex md:flex-row flex-col border-2 rounder-2xl border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                        <div class="w-full md:w-1/3 p-4 md:p-8 flex items-center justify-center">
+                        <img class="h-full  w-full object-cover rounded-3xl" src="https://static.republika.co.id/uploads/images/inpicture_slide/stok-cadangan-beras-pemerintah-cbp-mencetak-sejarah-baru-berdasarkan_250513133832-283.jpg" alt="blog">
+                        </div>
+                        <div class="w-2/3 p-8 ">
+                        <h1 style="font-family: 'Archivo Black', sans-serif;" class="text-3xl font-semibold mb-5 text-green-900">Cadangan Beras Pemerintah Tembus 3,7 Juta Ton, Dorong Kemandirian Pangan</h1>
+                        <p class="text-lg leading-relaxed">Per 13 Mei 2025 pukul 11.03 WIB, stok Cadangan Beras Pemerintah (CBP) mencapai 3.701.006 ton—rekor tertinggi sejak BULOG berdiri pada 1969. Keberhasilan ini menegaskan komitmen pemerintah untuk memperkuat kemandirian beras dan meningkatkan kesejahteraan petani melalui kenaikan harga pembelian gabah, tambahan pupuk bersubsidi, serta optimalisasi sarana distribusi pertanian dan irigasi. Menteri Pertanian Andi Amran Sulaiman menyebut capaian ini sebagai bukti bahwa kebijakan pemerintah berjalan efektif dalam menjaga ketahanan pangan nasional.
+                        </p>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+    <!-- Card tambahan -->
+    <div class="more-text hidden contents">
+        <div class="p-4 sm:w-1/2 lg:w-1/3">
+            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                <img class="lg:h-72 md:h-48 w-full object-cover object-center" src="/gambar/lahan-kosong.jpg" alt="blog">
+                <div class="p-6 hover:bg-green-700 hover:text-white transition duration-300 ease-in">
+                    <h2 class="text-base font-medium text-indigo-300 mb-1">25 Januari 2025</h2>
+                    <h1 class="text-2xl font-semibold mb-3">Lahan Pak Jumadi</h1>
+                    <p class="leading-relaxed mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt ipsam reprehenderit
+                        fuga! Dolores quisquam eius cum accusamus?</p>
+                    <div class="flex items-center flex-wrap ">
+                        <a href="#" class="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">Read More
+                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>Rp 3.500.000 - Rp 4.000.000
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="more-text hidden contents">
+        <div class="p-4 sm:w-1/2 lg:w-1/3">
+            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                <img class="lg:h-72 md:h-48 w-full object-cover object-center" src="/gambar/lahan-kosong.jpg" alt="blog">
+                <div class="p-6 hover:bg-green-700 hover:text-white transition duration-300 ease-in">
+                    <h2 class="text-base font-medium text-indigo-300 mb-1">25 Januari 2025</h2>
+                    <h1 class="text-2xl font-semibold mb-3">Lahan Pak Jumadi</h1>
+                    <p class="leading-relaxed mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Aperiam modi, expedita quos doloremque autem ipsum itaque incidunt ipsam reprehenderit
+                        fuga! Dolores quisquam eius cum accusamus?</p>
+                    <div class="flex items-center flex-wrap ">
+                        <a href="#" class="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0">Read More
+                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14"></path>
+                                <path d="M12 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>Rp 3.500.000 - Rp 4.000.000
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Tombol View More / Hide -->
+    <div class="after:h-px my-24 flex items-center before:h-px before:flex-1 before:bg-gray-300 before:content-[''] after:flex-1 after:bg-gray-300 after:content-[''] text-center gap-4 justify-center">
+
+
+        <button id="toggle-btn" type="button"class="flex items-center rounded-full border border-gray-400 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-blue-600 transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-2 h-4 w-4">
+                <path fill-rule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clip-rule="evenodd" />
+            </svg>
+            View More
+        </button>
+
+
+        <button id="hide-btn" type="button"
+            class="hidden flex items-center rounded-full border border-gray-400 bg-white px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-red-600 transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-2 h-4 w-4">
+                <path fill-rule="evenodd"
+                    d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832l-3.71 3.938a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z"
+                    clip-rule="evenodd" />
+            </svg>
+            Hide
+        </button>
+        </div>
+
+
+      
+    
+    <footer class="bg-green-800 text-white py-6 mt-16">
+  <div class="container mx-auto text-center">
+    &copy; 2025 Nandur. Semua Hak Cipta Dilindungi.
+  </div>
+</footer>
+
+    
+   
+    <script>
+        const menuIcon = document.querySelector('.menu-icon');
+        const closeIcon = document.querySelector('.close-icon');
+        const mobileNavmenu = document.querySelector('.mobile-navmenu');
+        const mobileMenuItems = document.querySelector('.mobile-menu-items');
+
+        menuIcon.addEventListener('click', () => {
+            mobileNavmenu.classList.add('active');
+            mobileMenuItems.classList.add('active'); // ini penting!
+        });
+
+        closeIcon.addEventListener('click', () => {
+            mobileNavmenu.classList.remove('active');
+            mobileMenuItems.classList.remove('active'); // ini juga penting!
+        });
+
+
+        const logout = document.getElementById('logout');
+
+        logout.addEventListener('click', function (e) {
+            const confirmLogout = confirm("Apakah Anda yakin ingin logout?");
+            if (!confirmLogout) {
+            e.preventDefault();
+            }
+        
+        });
+</script>
+</body>
+</html>

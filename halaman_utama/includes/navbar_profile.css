@@ -1,0 +1,19 @@
+@media (max-width: 768px) {
+    /* Existing mobile styles */
+    .mobile-navmenu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        height: 64px; /* Fixed height for mobile nav */
+    }
+}
+
+    body {
+        padding-top: 64px; /* Same as mobile-navmenu height */
+    }

@@ -1,0 +1,465 @@
+/* Reset dan pengaturan dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.nav-container{
+    position:fixed ;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #293241;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 48px;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.4);
+    border-radius: 0 0 20px 20px;
+    z-index: 100;
+}
+.nav-container nav .logo {
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    
+}
+.nav-container .menu-items {
+    display: flex;
+    align-items: center;
+}
+.nav-container .menu-items > a {
+    color:white;
+    margin: 0 24px;
+    text-decoration: none;
+    position: relative;
+}
+.nav-container .menu-items > a:hover::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: #2b9348;
+    bottom: -13px;
+    left: 0;
+}
+
+
+/* Tombol Autentikasi */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.sign-in {
+    background-color: #2b9348;
+    color: #fff;
+    border: 2px solid #2b9348;
+}
+
+.sign-in:hover {
+    background-color: #72c588;
+    border-color: #6fcf89;
+    transform: scale(1.1);
+}
+
+/* hidden item */
+.mobile-navmenu,
+.mobile-menu-items {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    .nav-container {
+        display: none;
+    }
+
+    .mobile-navmenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 32px;
+        background: #293241;
+        box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+    }
+    .mobile-navmenu .logo {
+        font-size: 28px;
+        font-weight: 900;
+        font-family: "Roboto", sans-serif;
+        color: #fff;
+    }
+    .mobile-navmenu .menu-icons img {
+        vertical-align: middle;
+        width: 50px;
+        height: auto;
+        
+    }
+    .mobile-navmenu .menu-icons .close-icon {
+        display: none;
+    }
+    .mobile-navmenu.active .menu-icons .close-icon {
+        display: block;
+    }
+    .mobile-navmenu.active .menu-icons .menu-icon{
+        display: none;
+    }
+    .mobile-menu-items {
+        position: fixed;
+        width: 200px;
+        left: 180px;
+        top: 50px;
+        background: #f7fcf8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        border-radius: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+
+    }
+    
+    /* Saat menu aktif */
+    .mobile-menu-items.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .mobile-menu-items a {
+        margin: 8px 0;
+        font-family: "Roboto", sans-serif;
+        font-size: 24px;
+        text-decoration: none;
+        color: #073b4c;
+        font-weight: 900;
+        
+    }
+
+    .mobile-menu-items .menu-items {
+        display: flex;
+        flex-direction: column;
+       /* align-items: flex-end; */
+        gap: 24px;
+        /* margin-right: 32px; */
+        margin-top: 30px; 
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .mobile-menu-items .auth-buttons {
+        margin-bottom: 20px; 
+    }
+}
+
+/* Hero Section */
+.hero {
+    background: url('/gambar/banner.jpg') center/cover no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.btn-hero {
+    display: inline-block;
+    background-color: #28a745;
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-hero:hover {
+    background-color: #218838;
+}
+
+
+.services {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #fff;
+}
+
+.services h2 {
+    font-size: 32px;
+    color: #1b5e20;
+    margin-bottom: 10px;
+}
+
+.services p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.service-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.card {
+    width: 300px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card h3 {
+    font-size: 18px;
+    color: #1b5e20;
+    margin: 16px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    margin: 0 16px 20px;
+}
+
+
+/* Section Umum */
+section {
+    padding: 100px 50px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* Local Gardening Section */
+.local-gardening {
+    background-color: #f1f7f4;
+}
+
+.local-gardening .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.local-gardening .image img {
+    width: 500px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.local-gardening .content {
+    max-width: 600px;
+}
+
+.local-gardening h2 {
+    color: #2b9348;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.local-gardening p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.local-gardening ul {
+    list-style: none;
+    padding: 0;
+}
+
+.local-gardening ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #2b9348;
+}
+@media (max-width: 768px) {
+    .local-gardening .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .local-gardening .image img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .local-gardening .content {
+        max-width: 100%;
+        padding: 0 15px;
+        text-align: center;
+    }
+}
+
+
+/* Footer */
+.footer {
+    background-color: #016630;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+
+}
+/* Avatar dan dropdown */
+.profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-text {
+  font-weight: 600;
+  color: #333;
+}
+
+
+
+
+.sign-out {
+  background-color: #e74c3c;
+}
+
+.sign-out:hover {
+  background-color: #c0392b;
+}
+
+.avatar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+ 
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.profile-dropdown .dropdown-content a {
+  display: block;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.profile-dropdown .dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
